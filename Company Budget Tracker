@@ -1,0 +1,125 @@
+import datetime
+
+class BudgetTracker:
+    def __init__(self):
+        """Initialize the budget tracker with records and balance"""
+        self.records = []
+        self.balance = 0.0
+        self.next_id = 1  # Unique ID for each record
+
+    def add_income(self, amount, description="Income"):
+        """Add an income record to the tracker"""
+        record = {
+            "id": self.next_id,
+            "type": "income",
+            "amount": amount,
+            "description": description,
+            "date": datetime.datetime.now()
+        }
+        self.records.append(record)
+        self.balance += amount
+        self.next_id += 1
+        print(f"Income of ${amount} added. New balance: ${self.balance:.2f}")
+    
+    def add_expense(self, amount, description="Expense"):
+        """Add an expense record to the tracker"""
+        if amount > self.balance:
+            print("Insufficient balance for this expense!")
+        else:
+            record = {
+                "id": self.next_id,
+                "type": "expense",
+                "amount": amount,
+                "description": description,
+                "date": datetime.datetime.now()
+            }
+            self.records.append(record)
+            self.balance -= amount
+            self.next_id += 1
+            print(f"Expense of ${amount} added. New balance: ${self.balance:.2f}")
+    
+    def view_balance(self):
+        """View the current balance"""
+        print(f"Current balance: ${self.balance:.2f}")
+    
+    def generate_report(self):
+        """Generate a report of all income and expenses"""
+        if not self.records:
+            print("No records available.")
+            return
+        
+        print("\n--- Budget Report ---")
+        for record in self.records:
+            date = record["date"].strftime("%Y-%m-%d %H:%M:%S")
+            print(f"ID: {record['id']} | {date} | {record['type'].capitalize()} | ${record['amount']:.2f} | {record['description']}")
+        
+        print(f"\nTotal Balance: ${self.balance:.2f}")
+        print("----------------------")
+    
+    def delete_expense(self):
+        """Delete an expense by its ID"""
+        if not self.records:
+            print("No records available to delete.")
+            return
+        
+        print("\n-- Expenses --")
+        for record in self.records:
+            if record["type"] == "expense":
+                date = record["date"].strftime("%Y-%m-%d %H:%M:%S")
+                print(f"ID: {record['id']} | {date} | ${record['amount']:.2f} | {record['description']}")
+        
+        try:
+            expense_id = int(input("\nEnter the ID of the expense you want to delete: "))
+            expense_to_delete = next((record for record in self.records if record["id"] == expense_id and record["type"] == "expense"), None)
+            
+            if expense_to_delete:
+                self.records.remove(expense_to_delete)
+                self.balance += expense_to_delete["amount"]
+                print(f"Expense of ${expense_to_delete['amount']:.2f} deleted. New balance: ${self.balance:.2f}")
+            else:
+                print("Expense not found.")
+        except ValueError:
+            print("Invalid ID input.")
+
+def main():
+    tracker = BudgetTracker()
+    
+    while True:
+        print("\n-- Company Budget Tracker --")
+        print("1. Add Income")
+        print("2. Add Expense")
+        print("3. Delete Expense")  # Moved delete expense to 3rd position
+        print("4. View Balance")
+        print("5. Generate Report")
+        print("6. Exit")
+        
+        choice = input("Choose an option (1-6): ")
+        
+        if choice == '1':
+            amount = float(input("Enter the income amount: $"))
+            description = input("Enter a description (optional): ") or "Income"
+            tracker.add_income(amount, description)
+        
+        elif choice == '2':
+            amount = float(input("Enter the expense amount: $"))
+            description = input("Enter a description (optional): ") or "Expense"
+            tracker.add_expense(amount, description)
+        
+        elif choice == '3':
+            tracker.delete_expense()
+        
+        elif choice == '4':
+            tracker.view_balance()
+        
+        elif choice == '5':
+            tracker.generate_report()
+        
+        elif choice == '6':
+            print("Exiting Budget Tracker. Goodbye!")
+            break
+        
+        else:
+            print("Invalid choice. Please enter a number between 1 and 6.")
+
+if __name__ == "__main__":
+    main()

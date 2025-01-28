@@ -1,0 +1,7 @@
+Creating a data cleaning project in Python can be broken down into several key steps. 
+This is a simple project where we clean a sample dataset using Pandas and other useful libraries for
+handling missing values, duplicates, and irrelevant data, and perform general preprocessing.
+
+Project Objective:
+  1.Project Objective: Clean a CSV dataset by handling missing values, duplicates, and unnecessary columns. Normalize or scale data if necessary.
+  2.Dataset: We’ll simulate a dataset with missing values, incorrect types, duplicates, and unnecessary columns.

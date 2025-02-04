@@ -1,13 +1,10 @@
 Steps to Predict NBA MVP Using SQL:
 
 1. Gather Data:
-  You need to collect player performance data. Sources like ESPN, NBA website, or Basketball-Reference offer 
+  We need to collect player performance data. Sources like ESPN, NBA website, or Basketball-Reference offer 
   comprehensive statistics for players. This data includes fields like points per game (PPG), assists per game (APG), 
   rebounds per game (RPG), field goal percentage (FG%), player efficiency rating (PER), etc.
   
-  Typically, these websites have API access or you can scrape the data using tools like Python's BeautifulSoup, 
-  Selenium, or use API endpoints (if provided). 
-
 2. Create Database:
   Create a relational database (e.g., MySQL, PostgreSQL) to store player statistics. You’ll need tables like:
     players (player ID, name, team, position, etc.)

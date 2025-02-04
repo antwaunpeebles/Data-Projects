@@ -14,7 +14,7 @@ Steps to Predict NBA MVP Using SQL:
 3. Basic SQL Query Structure: Once the data is in the database, you can use SQL to analyze which
    players are likely to win the MVP based on their performance.
 
-Example SQL Queries:
+SQL Queries:
 1. Creating Tables for Player Stats:
 -- Table to store player information
 CREATE TABLE players (
